@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+    web:
+        image: 'gitlab/gitlab-ce'
+        container_name: 'gitlab'
+        restart: always
+        hostname: 127.0.0.1
+        environment:
+            GITLAB_OMNIBUS_CONFIG: |
+                external_url 'http://127.0.0.1:9090'
+                gitlab_rails['gitlab_shell_ssh_port']=2224
+        networks:
+            - docker_webstack
+        ports:
+            - '80:80'
+            - '443:443'
+            - '9090:9090'
+            - '2224:22'
+networks:
+    docker_webstack:
+        driver: bridge
